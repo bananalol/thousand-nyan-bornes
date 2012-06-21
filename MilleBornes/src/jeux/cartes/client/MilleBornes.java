@@ -2,11 +2,11 @@
  * MilleBorne.java    21/06/2012
  */
 
-package jeux.cartes;
+package jeux.cartes.client;
 
 /**
  * Jeux de cartes le 1000 bornes
- * @author Loïc Martinez
+ * @author Loï¿½c Martinez
  * @version 1.0
  */
 

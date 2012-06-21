@@ -2,7 +2,7 @@
  * JDLoginError.java	01/02/2012
  */
 
-package jeux.cartes;
+package jeux.cartes.client;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
