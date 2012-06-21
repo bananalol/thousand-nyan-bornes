@@ -120,7 +120,5 @@ public class Deck {
 		
 		// On mélange le deck
 		Collections.shuffle(deck);
-		
-		System.out.println(deck.size());
 	}
 }

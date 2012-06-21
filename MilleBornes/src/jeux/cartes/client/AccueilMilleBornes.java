@@ -239,7 +239,7 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 						} while (nombreDeJoueurs < 2 || nombreDeJoueurs > 6);
 
 						Deck deck = new Deck();
-						
+
 					} catch (RemoteException ex) {
 						logger.error("AccueilMilleBornes.actionPerformed() : " +
 								"RemoteException");
@@ -254,6 +254,9 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 		} else if (ev.getSource() == menuQuitter
 				|| ev.getSource() == boutonQuitter) {
 			// Arrête le serveur par la même occasion
+			if (serveur != null) {
+				serveur.arreter();
+			}
 			System.exit(0);
 		} else if (ev.getSource() == menuPreferences) {
 			new JDPreferences(conf);
