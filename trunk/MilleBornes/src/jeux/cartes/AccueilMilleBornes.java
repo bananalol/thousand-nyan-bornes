@@ -4,6 +4,11 @@
 
 package jeux.cartes;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +26,7 @@ import jeux.utilitaires.Configuration;
  * @version 1.0
  */
 
-public class AccueilMilleBornes extends JFrame {
+public class AccueilMilleBornes extends JFrame implements ActionListener {
 	
 	/** Constantes */
 	private static final String TITRE = "Identification";
@@ -52,4 +57,66 @@ public class AccueilMilleBornes extends JFrame {
 
 	/** Passerelle Client - Serveur via RMI */
 	private RequetesClient reqClient;
+	
+	public AccueilMilleBornes() {
+		// On initialise le titre, la position etc.
+        setProperties();
+        getContentPane().setLayout(new FlowLayout());
+		setVisible(true);
+	}
+	
+	/**
+     * Configuration des propriétés de la JFrame
+     */
+    private void setProperties() {
+        // Configuration de la JFrame
+        setTitle(TITRE);
+        setLocation(ABSCISSE, ORDONNEE);
+        setSize(LARGEUR, HAUTEUR);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addMenuBar();
+
+        // Ajout du 1er JPanel pour qu'il y ait un peu d'espace
+        // avec le haut de la JFrame
+        firstPan = new JPanel(new FlowLayout());
+        firstPan.setPreferredSize(new Dimension(LARGEUR, 10));
+        add(firstPan);
+    }
+    
+    /**
+     * Ajoute le menu Fichier, Options, Aide...
+     */
+    private void addMenuBar() {
+        menuBar = new JMenuBar();
+        menuFichier = new JMenu("Fichier");
+        menuBar.add(menuFichier);
+
+        menuOption = new JMenu("Options");
+        menuBar.add(menuOption);
+
+        menuAide = new JMenu("Aide");
+        menuBar.add(menuAide);
+
+        setJMenuBar(menuBar);
+
+        menuQuitter = new JMenuItem("Quitter");
+        menuFichier.add(menuQuitter);
+        menuQuitter.addActionListener(this);
+
+        menuPreferences = new JMenuItem("Préférences");
+        menuOption.add(menuPreferences);
+        menuPreferences.addActionListener(this);
+
+        menuAPropos = new JMenuItem("A propos...");
+        menuAide.add(menuAPropos);
+        menuAPropos.addActionListener(this);
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent ev) {
+		if (ev.getSource() == menuQuitter) {
+			dispose();
+		}
+	}
 }
