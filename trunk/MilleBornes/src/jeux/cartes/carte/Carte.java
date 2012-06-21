@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 public class Carte {
 
 	/** Image de la carte */
-	private BufferedImage picture = null;
+	private BufferedImage picture;
 	
 	/** Nom de la carte */
 	private String pictureName;

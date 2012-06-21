@@ -106,16 +106,13 @@ public class JDIntTextField extends JDialog implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent ev) {
 		if (ev.getSource() == bouton) {
-			do {
-				try {
-					result = Integer.parseInt(textField.getText().trim());
-					resultCorrect = true;
-				} catch (NumberFormatException ex) {
-					new JDError("Veuillez entrer un nombre !");
-				}
-			} while (! resultCorrect);
-			setVisible(false);
-			dispose();
+			try {
+				result = Integer.parseInt(textField.getText().trim());
+				setVisible(false);
+				dispose();
+			} catch (NumberFormatException ex) {
+				new JDError("Veuillez entrer un nombre !");
+			}
 		}
 	}
 }
