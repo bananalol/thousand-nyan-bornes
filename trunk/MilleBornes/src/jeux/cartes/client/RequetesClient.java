@@ -2,7 +2,7 @@
  * RequetesClient.java    19/04/2012
  */
 
-package jeux.cartes;
+package jeux.cartes.client;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
