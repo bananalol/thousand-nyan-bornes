@@ -10,7 +10,14 @@ package jeux.cartes.carte;
  * @version 1.0
  */
 
-public abstract class Parade extends Carte {
+public class Parade extends Carte {
+	
+	/** Nom des parades */
+	public static final String REPARATION = "reparation";
+	public static final String ROUE_DE_SECOURS = "roue_de_secours";
+	public static final String ESSENCE = "essence";
+	public static final String FIN_LIMITE = "fin_limite";
+	public static final String FEU_VERT = "feu_vert";
 	
 	/**
 	 * Constrcuteur

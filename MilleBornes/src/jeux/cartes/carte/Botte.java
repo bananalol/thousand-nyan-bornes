@@ -10,7 +10,13 @@ package jeux.cartes.carte;
  * @version 1.0
  */
 
-public abstract class Botte extends Carte {
+public class Botte extends Carte {
+	
+	/** Nom des bottes */
+	public static final String AS_DU_VOLANT = "as_du_volant";
+	public static final String CAMION_CITERNE = "camion_citerne";
+	public static final String INCREVABLE = "increvable";
+	public static final String PRIORITAIRE = "prioritaire";
 	
 	/**
 	 * Constructeur
