@@ -152,7 +152,8 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 		BufferedImage myPicture;
 		try {
 			myPicture = ImageIO.read
-					(AccueilMilleBornes.class.getResource("pictures/accueil_nyan_cat.png"));
+					(AccueilMilleBornes.class.getResource(
+							"pictures/accueil_nyan_cat.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 			add(picLabel);
 
@@ -234,7 +235,7 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 						do {
 							nombreDeJoueurs = new JDIntTextField("Joueurs ?",
 									"Nombre de joueurs").getResult();
-						} while (nombreDeJoueurs < 2 || nombreDeJoueurs > 4);
+						} while (nombreDeJoueurs < 2 || nombreDeJoueurs > 6);
 
 					} catch (RemoteException ex) {
 						logger.error("AccueilMilleBornes.actionPerformed() : " +
