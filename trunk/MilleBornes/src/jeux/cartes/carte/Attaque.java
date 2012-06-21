@@ -11,9 +11,13 @@ package jeux.cartes.carte;
  */
 
 public class Attaque extends Carte {
-
-	/** Nom de l'attaque */
-	private String attaqueName;
+	
+	/** Nom des attaques */
+	public static final String LIMITE_DE_VITESSE = "limite";
+	public static final String ACCIDENT = "accident";
+	public static final String PANNE = "panne";
+	public static final String CREVAISON = "crevaison";
+	public static final String FEU_ROUGE = "feu_rouge";
 	
 	/** Attaque blocante */
 	private boolean attaqueBlocante;

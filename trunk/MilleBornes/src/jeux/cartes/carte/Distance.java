@@ -12,6 +12,13 @@ package jeux.cartes.carte;
 
 public class Distance extends Carte {
 	
+	/** Nombre de kilomètres */
+	public static final String KM_25 = "25km";
+	public static final String KM_50 = "50km";
+	public static final String KM_75 = "75km";
+	public static final String KM_100 = "100km";
+	public static final String KM_200 = "200km";
+	
 	/** Distance de la carte */
 	private int distance;
 	
