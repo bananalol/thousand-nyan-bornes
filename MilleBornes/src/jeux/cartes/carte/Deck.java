@@ -4,6 +4,7 @@
 
 package jeux.cartes.carte;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -66,6 +67,7 @@ public class Deck {
 	 * Constructeur
 	 */
 	public Deck() {
+		deck = new ArrayList<Carte>();
 		// On ajoute toutes les cartes au deck
 		addCards();
 	}
@@ -74,6 +76,7 @@ public class Deck {
 	 * Ajoute les cartes au deck
 	 */
 	private void addCards() {
+		
 		for (int i = 0; i < NB_25_50_75; i++) {
 			deck.add(new Distance(Distance.KM_25, 25));
 			deck.add(new Distance(Distance.KM_50, 50));
@@ -117,5 +120,7 @@ public class Deck {
 		
 		// On mélange le deck
 		Collections.shuffle(deck);
+		
+		System.out.println(deck.size());
 	}
 }

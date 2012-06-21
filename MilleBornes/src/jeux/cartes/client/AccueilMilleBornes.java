@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
+import jeux.cartes.carte.Deck;
 import jeux.cartes.serveur.ServeurRequetes;
 import jeux.utilitaires.Configuration;
 
@@ -237,6 +238,8 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 									"Nombre de joueurs").getResult();
 						} while (nombreDeJoueurs < 2 || nombreDeJoueurs > 6);
 
+						Deck deck = new Deck();
+						
 					} catch (RemoteException ex) {
 						logger.error("AccueilMilleBornes.actionPerformed() : " +
 								"RemoteException");
