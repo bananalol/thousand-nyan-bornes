@@ -35,7 +35,6 @@ public class JDIntTextField extends JDialog implements ActionListener {
 	private JButton bouton;
 	private JPanel panLabel, panBouton;
 	private int result;
-	private boolean resultCorrect = false;
 
 	/**
 	 * Constructeur
@@ -45,6 +44,7 @@ public class JDIntTextField extends JDialog implements ActionListener {
 		setProperties(titre);
 		addComponents(FlowLayout.CENTER, question);
 		setEnter();
+		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
 
