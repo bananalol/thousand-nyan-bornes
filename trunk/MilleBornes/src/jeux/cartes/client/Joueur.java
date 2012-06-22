@@ -81,9 +81,9 @@ public class Joueur implements Serializable {
 	/**
 	 * @return l'image du joueur
 	 */
-	//public BufferedImage getImageJoueur() {
-		//return imageJoueur;
-	//}
+	public byte[] getImageJoueur() {
+		return imageJoueur;
+	}
 
 	/**
 	 * @return le pseudo du joueur
