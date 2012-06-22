@@ -18,40 +18,48 @@ import jeux.utilitaires.Configuration;
 
 /**
  * Permet la passerelle Client - Serveur via RMI
- * @author Loïc Martinez & Aboulkacem Hamid
+ * @author Loïc Martinez
  */
 public class RequetesClient {
 
-    /** Connexion avec le ServeurRequetes */
-    private static RequetesReseau connexionServer = null;
+	/** Connexion avec le ServeurRequetes */
+	private static RequetesReseau connexionServer = null;
 
-    /** Configuration du client */
-    private Configuration conf = new Configuration("configClient.properties");
+	/** Configuration du client */
+	private Configuration conf = new Configuration("configClient.properties");
 
-    /** Logger */
-    private static Logger logger = Logger.getLogger(RequetesClient.class);
-    
-    /**
-     * Constructeur par défaut
-     * @throws MalformedURLException, si problème durant le lookup
-     * @throws RemoteException, si problème via RMI
-     */
-    public RequetesClient() throws NotBoundException, RemoteException {
-        try {
+	/** Logger */
+	private static Logger logger = Logger.getLogger(RequetesClient.class);
 
-            connexionServer = (RequetesReseau) Naming.lookup("rmi://"
-                    + conf.valueOf("address") + "/serveur");
+	/**
+	 * Constructeur par défaut
+	 * @throws MalformedURLException, si problème durant le lookup
+	 * @throws RemoteException, si problème via RMI
+	 */
+	public RequetesClient() throws NotBoundException, RemoteException {
+		try {
+			connexionServer = (RequetesReseau) Naming.lookup("rmi://"
+					+ conf.valueOf("address") + "/serveurMilleBornes");
 
-        } catch (MalformedURLException ex) {
-            new JDError("Mauvaise URL");
-            logger.error("RequetesClient.RequetesClient() : MalformedURLException");
-        }
-    }
+		} catch (MalformedURLException ex) {
+			new JDError("Mauvaise URL");
+			logger.error("RequetesClient.RequetesClient() : MalformedURLException");
+		}
+	}
 
-    /**
-     * @return connexionServer
-     */
-    public RequetesReseau getReseau() {
-        return connexionServer;
-    }
+	/**
+	 * @return connexionServer
+	 */
+	public RequetesReseau getReseau() {
+		return connexionServer;
+	}
+
+	/**
+	 * Permet de se connecter à la partie
+	 * @param joueur, le joueur à enregistrer
+	 * @throws RemoteException 
+	 */
+	public void sendJoueur(Joueur joueur) throws RemoteException {
+		connexionServer.addJoueur(joueur);
+	}
 }

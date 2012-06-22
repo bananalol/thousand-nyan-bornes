@@ -157,12 +157,9 @@ public class JDPreferences extends JDialog implements ActionListener {
 			JFileChooser chooser = new JFileChooser();
 			
 			// Filtre du JFileChooser
-			ImageFilter filtre = new ImageFilter("Fichiers png, jpg, jpeg, ico");
+			ImageFilter filtre = new ImageFilter("Fichiers png");
 			
 			filtre.addExtension(".png");
-			filtre.addExtension(".jpg");
-			filtre.addExtension(".jpeg");
-			filtre.addExtension(".ico");
 			
 			chooser.addChoosableFileFilter(filtre);
 			
