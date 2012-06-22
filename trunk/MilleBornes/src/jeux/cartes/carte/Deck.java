@@ -46,18 +46,13 @@ public class Deck {
 	 * 14x Feu vert
 	 */
 	
+	/** Constantes */
 	private static final int NB_25_50_75 = 10;
-
 	private static final int NB_100 = 12;
-
 	private static final int NB_200_LIMITE_VITESSE = 4;
-
 	private static final int NB_ACCIDENT_PANNE_CREVAISON = 3;
-
 	private static final int NB_FEUX_ROUGES = 5;
-
 	private static final int NB_REPARATION_ESSENCE_ROUE_FIN_LIMITE = 6;
-
 	private static final int NB_FEUX_VERTS = 14;
 	
 	/** Liste de cartes */
@@ -120,5 +115,12 @@ public class Deck {
 		
 		// On mélange le deck
 		Collections.shuffle(deck);
+	}
+	
+	/**
+	 * @return le deck
+	 */
+	public List<Carte> getDeck() {
+		return deck;
 	}
 }

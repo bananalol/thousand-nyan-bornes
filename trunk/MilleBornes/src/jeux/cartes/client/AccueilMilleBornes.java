@@ -9,7 +9,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
@@ -78,7 +80,7 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 	private Configuration conf;
 
 	/** Serveur */
-	ServeurRequetes serveur = null;
+	private ServeurRequetes serveur = null;
 
 	/** Passerelle Client - Serveur via RMI */
 	private RequetesClient reqClient;
@@ -246,6 +248,32 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 		getRootPane().setDefaultButton(boutonConnexion);
 	}
 
+	/**
+	 * Envoi des données au serveur et affichage
+	 * de la fenêtre de jeu
+	 * @throws NotBoundException 
+	 * @throws RemoteException 
+	 */
+	public void afficheFenetreJeu() throws NotBoundException, RemoteException {
+		// On se connecte au serveur
+		RequetesClient client = new RequetesClient();
+
+		try {
+			client.sendJoueur(new Joueur(fieldId.getText().trim()));
+		} catch (IOException ex) {
+			try {
+				client.sendJoueur(new Joueur(fieldId.getText().trim(),
+						"pictures/accueil_nyan_cat.png"));
+			} catch (IOException ex1) {
+				System.out.println("Erreur chargement image par défaut");
+			}
+		}
+
+		// On affiche la GUI
+		new MilleBornesConnecte();
+		dispose();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if (ev.getSource() == boutonConnexion) {
@@ -261,16 +289,21 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 									"Nombre de joueurs").getResult();
 						} while (nombreDeJoueurs < 2 || nombreDeJoueurs > 6);
 
-						Deck deck = new Deck();
-
+						afficheFenetreJeu();
 					} catch (RemoteException ex) {
-						logger.error("AccueilMilleBornes.actionPerformed() : " +
-								"RemoteException");
-						new JDError("Serveur déjà créé !");
+						new JDError("Le serveur est déjà démarré !");
+					} catch (NotBoundException ex) {
+						new JDError("Le serveur ne répond pas !");
+					}
+				} else {
+					try {
+						afficheFenetreJeu();
+					} catch (RemoteException ex) {
+						new JDError("Le serveur ne répond pas !");
+					} catch (NotBoundException ex) {
+						new JDError("Le serveur ne répond pas !");
 					}
 				}
-				// On se connecte au serveur
-
 			} else {
 				new JDError("Veuillez entrer un pseudo !");
 			}

@@ -12,9 +12,14 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import jeux.cartes.rmi.RequetesReseau;
+import jeux.cartes.carte.Deck;
+import jeux.cartes.client.Joueur;
 
 /**
  * Passerelle RMI vers le serveur
@@ -26,21 +31,15 @@ RequetesReseau {
 	/** Nom du serveur RMI */
 	private String name;
 
-	/** Permet de savoir si le registre a été créé ou non */
-	private boolean registryCree = false;
-
-	/**
-	 * Constructeur
-	 * @param name, le nom du serveur RMI
-	 * @throws RemoteException, si un problème survient via RMI
-	 */
-	public ServeurRequetes(String name) throws RemoteException {
-		this.name = name;
-	}
+	/** Liste des joueurs connectés */
+	private static List<Joueur> joueurs;
+	
+	/** Deck */
+	private static Deck deck = new Deck();
 
 	/** Logger */
 	private static Logger logger = Logger.getLogger(ServeurRequetes.class);
-
+	
 	/**
 	 * Constructeur
 	 * @param name, le nom du serveur RMI
@@ -50,11 +49,12 @@ RequetesReseau {
 	public ServeurRequetes(String name, int port) throws RemoteException {
 		this.name = name;
 
+		joueurs = new ArrayList<Joueur>();
+		
 		// On réserve le port
 		LocateRegistry.createRegistry(port);
 
 		lancer();
-		registryCree = true;
 	}
 
 	/**
@@ -73,6 +73,14 @@ RequetesReseau {
 	}
 
 	/**
+	 * Permet d'ajouter un joueur connecté
+	 * @param joueur, le joueur à ajouter
+	 */
+	public void addJoueur(Joueur joueur) {
+		joueurs.add(joueur);
+	}
+	
+	/**
 	 * Permet d'arrêter le serveur
 	 */
 	public void arreter() {
@@ -88,20 +96,5 @@ RequetesReseau {
 		} catch (NotBoundException e) {
 			logger.error("ServeurRequetes.arreter() : NotBoundException");
 		}
-	}
-
-	/**
-	 * Setter de registryCree
-	 * @param b, true ou false
-	 */
-	public void setRegistryCree(boolean b) {
-		registryCree = b;
-	}
-
-	/**
-	 * @return registryCree
-	 */
-	public boolean getRegistryCree() {
-		return registryCree;
 	}
 }
