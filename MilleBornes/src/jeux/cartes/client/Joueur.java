@@ -66,14 +66,15 @@ public class Joueur implements Serializable {
 	 * @throws IOException
 	 */
 	public Joueur(String pseudo, String defaultPicture) throws IOException {
-		// TODO : Problème chargement
+		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-		//File f = new File(Joueur.class.getResource(
-				//defaultPicture).getPath());
+		// File f = new File(Joueur.class.getResource(
+				// defaultPicture).getPath());
 
-		//ImageIO.write(ImageIO.read(f), "png", baos);
-		ImageIO.write(ImageIO.read(Joueur.class.getResource(defaultPicture)), "png", baos);
+		// ImageIO.write(ImageIO.read(f), "png", baos);
+		ImageIO.write(ImageIO.read(Joueur.class.getResource(defaultPicture)),
+				"png", baos);
 		imageJoueur = baos.toByteArray();
 
 		this.pseudo = pseudo;
