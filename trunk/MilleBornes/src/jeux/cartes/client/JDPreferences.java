@@ -162,6 +162,8 @@ public class JDPreferences extends JDialog implements ActionListener {
 			filtre.addExtension(".png");
 			
 			chooser.addChoosableFileFilter(filtre);
+			chooser.setAcceptAllFileFilterUsed(false);
+			chooser.setFileFilter(filtre);
 			
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {	
 				textFieldImage.setText(
