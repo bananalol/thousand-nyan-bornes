@@ -257,7 +257,6 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 	public void afficheFenetreJeu() throws NotBoundException, RemoteException {
 		// On se connecte au serveur
 		RequetesClient client = new RequetesClient();
-
 		try {
 			client.sendJoueur(new Joueur(fieldId.getText().trim()));
 		} catch (IOException ex) {
@@ -265,7 +264,7 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 				client.sendJoueur(new Joueur(fieldId.getText().trim(),
 						"pictures/accueil_nyan_cat.png"));
 			} catch (IOException ex1) {
-				System.out.println("Erreur chargement image par défaut");
+				new JDError("Erreur chargement image par défaut");
 			}
 		}
 
