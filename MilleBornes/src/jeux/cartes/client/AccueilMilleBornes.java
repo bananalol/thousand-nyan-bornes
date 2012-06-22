@@ -291,7 +291,8 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 
 						afficheFenetreJeu();
 					} catch (RemoteException ex) {
-						new JDError("Le serveur est déjà démarré !");
+						ex.printStackTrace();
+						// new JDError("Le serveur est déjà démarré !");
 					} catch (NotBoundException ex) {
 						new JDError("Le serveur ne répond pas !");
 					}
