@@ -10,11 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 
 import jeux.utilitaires.Configuration;
+import jeux.utilitaires.ImageFilter;
 
 /**
  * Fenêtre modale pour configuration du client
@@ -24,115 +27,150 @@ import jeux.utilitaires.Configuration;
 
 public class JDPreferences extends JDialog implements ActionListener {
 
-    /** Constantes */
-    private static final String TITRE = "Préférences";
-    private static final String OK = "OK";
-    private static final String ANNULER = "Annuler";
-    private static final int LARGEUR = 290;
-    private static final int HAUTEUR = 130;
-    private static final int ABSCISSE = 480;
-    private static final int ORDONNEE = 280;
+	/** Constantes */
+	private static final String TITRE = "Préférences";
+	private static final String OK = "OK";
+	private static final String ANNULER = "Annuler";
+	private static final int LARGEUR = 480;
+	private static final int HAUTEUR = 160;
+	private static final int ABSCISSE = 480;
+	private static final int ORDONNEE = 280;
 
-    /** Composants de la JDialog */
-    private JLabel labelAdresse;
-    private JTextField textFieldAdresse;
-    private JButton valider, annuler;
-    private JPanel firstPan, panLabel, panBouton;
+	/** Composants de la JDialog */
+	private JLabel labelAdresse, labelImage;
+	private JTextField textFieldAdresse, textFieldImage;
+	private JButton valider, annuler, boutonImage;
+	private JPanel firstPan, panLabelAdress, panLabelImage, panBouton;
 
-    /** Configuration du client */
-    private Configuration conf;
+	/** Configuration du client */
+	private Configuration conf;
 
-    /**
-     * Constructeur
-     * @param conf, la configuration à charger
-     */
-    public JDPreferences(Configuration conf) {
-        this.conf = conf;
-        setProperties();
-        addComponents(FlowLayout.CENTER);
-        if (this.conf != null) {
-            loadConfiguration();
-        }
-        setEnter();
-        setVisible(true);
-    }
+	/**
+	 * Constructeur
+	 * @param conf, la configuration à charger
+	 */
+	public JDPreferences(Configuration conf) {
+		this.conf = conf;
+		setProperties();
+		addComponents(FlowLayout.CENTER);
+		if (this.conf != null) {
+			loadConfiguration();
+		}
+		setEnter();
+		setVisible(true);
+	}
 
-    /**
-     * Configuration des propriétés de la JFrame
-     */
-    private void setProperties() {
-        setTitle(TITRE);
-        setBounds(ABSCISSE, ORDONNEE, LARGEUR, HAUTEUR);
-        setResizable(false);
-        setModal(true);
-        getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	/**
+	 * Configuration des propriétés de la JFrame
+	 */
+	private void setProperties() {
+		setTitle(TITRE);
+		setBounds(ABSCISSE, ORDONNEE, LARGEUR, HAUTEUR);
+		setResizable(false);
+		setModal(true);
+		getContentPane().setLayout(new FlowLayout());
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        firstPan = new JPanel(new FlowLayout());
-        firstPan.setPreferredSize(new Dimension(LARGEUR, 5));
-        add(firstPan);
-    }
+		firstPan = new JPanel(new FlowLayout());
+		firstPan.setPreferredSize(new Dimension(LARGEUR, 5));
+		add(firstPan);
+	}
 
-    /**
-     * Ajout du label et du bouton
-     * @param alignement, la position des éléments
-     */
-    private void addComponents(int alignement) {
-        panLabel = new JPanel(new FlowLayout(alignement));
-        panLabel.setPreferredSize(new Dimension(LARGEUR, 30));
-        labelAdresse = new JLabel("Adresse du serveur ");
-        panLabel.add(labelAdresse);
+	/**
+	 * Ajout du label et du bouton
+	 * @param alignement, la position des éléments
+	 */
+	private void addComponents(int alignement) {
+		panLabelAdress = new JPanel(new FlowLayout(alignement));
+		panLabelAdress.setPreferredSize(new Dimension(LARGEUR, 25));
+		labelAdresse = new JLabel("Adresse du serveur ");
+		panLabelAdress.add(labelAdresse);
 
-        textFieldAdresse = new JTextField(10);
-        panLabel.add(textFieldAdresse);
+		textFieldAdresse = new JTextField(30);
+		panLabelAdress.add(textFieldAdresse);
 
-        add(panLabel);
+		add(panLabelAdress);
 
-        panBouton = new JPanel(new FlowLayout(alignement));
-        panBouton.setPreferredSize(new Dimension(LARGEUR, 50));
-        valider = new JButton(OK);
-        valider.addActionListener(this);
-        panBouton.add(valider);
-        annuler = new JButton(ANNULER);
-        annuler.addActionListener(this);
-        panBouton.add(annuler);
-        add(panBouton);
-    }
+		panLabelImage = new JPanel(new FlowLayout(alignement));
+		panLabelImage.setPreferredSize(new Dimension(LARGEUR, 30));
+		labelImage = new JLabel("            Image du joueur      ");
+		panLabelImage.add(labelImage);
 
-    /**
-     * Charge la configuration dans chaque JTextField
-     */
-    public void loadConfiguration() {
-        textFieldAdresse.setText(conf.valueOf("address"));
-    }
+		textFieldImage = new JTextField(30);
+		textFieldImage.setEnabled(false);
+		panLabelImage.add(textFieldImage);
 
-    /**
-     * Si on appuie sur Entrée, alors ça déclenche le listener
-     * du bouton bouton
-     */
-    public void setEnter() {
-        getRootPane().setDefaultButton(valider);
-    }
+		boutonImage = new JButton("...");
+		boutonImage.setPreferredSize(new Dimension(30, 17));
+		boutonImage.addActionListener(this);
+		panLabelImage.add(boutonImage);
 
-    /**
-     * @return l'adresse du serveur
-     */
-    public String getAddress() {
-        return textFieldAdresse.getText();
-    }
+		add(panLabelImage);
 
-    /**
-     * Permet de gérer les actions sur les ActionListeners
-     */
-    public void actionPerformed(ActionEvent ev) {
-        if (ev.getSource() == valider) { // Ecrire avec Configuration
-            // On modifie le fichier de configuration avec les valeurs entrées
-            conf.modifierValeur("address", textFieldAdresse.getText());
-            setVisible(false);
-            dispose();
-        } else if (ev.getSource() == annuler) { // Ne rien faire
-            setVisible(false);
-            dispose();
-        }
-    }
+		panBouton = new JPanel(new FlowLayout(alignement));
+		panBouton.setPreferredSize(new Dimension(LARGEUR, 50));
+		valider = new JButton(OK);
+		valider.addActionListener(this);
+		panBouton.add(valider);
+		annuler = new JButton(ANNULER);
+		annuler.addActionListener(this);
+		panBouton.add(annuler);
+		add(panBouton);
+	}
+
+	/**
+	 * Charge la configuration dans chaque JTextField
+	 */
+	public void loadConfiguration() {
+		textFieldAdresse.setText(conf.valueOf("address"));
+		textFieldImage.setText(conf.valueOf("playerPicture"));
+	}
+
+	/**
+	 * Si on appuie sur Entrée, alors ça déclenche le listener
+	 * du bouton bouton
+	 */
+	public void setEnter() {
+		getRootPane().setDefaultButton(valider);
+	}
+
+	/**
+	 * @return l'adresse du serveur
+	 */
+	public String getAddress() {
+		return textFieldAdresse.getText();
+	}
+
+	/**
+	 * Permet de gérer les actions sur les ActionListeners
+	 */
+	public void actionPerformed(ActionEvent ev) {
+		if (ev.getSource() == valider) { // Ecrire avec Configuration
+			// On modifie le fichier de configuration avec les valeurs entrées
+			conf.modifierValeur("address", textFieldAdresse.getText());
+			setVisible(false);
+			dispose();
+		} else if (ev.getSource() == annuler) { // Ne rien faire
+			setVisible(false);
+			dispose();
+		} else if (ev.getSource() == boutonImage) {
+			JFileChooser chooser = new JFileChooser();
+			
+			// Filtre du JFileChooser
+			ImageFilter filtre = new ImageFilter("Fichiers png, jpg, jpeg, ico");
+			
+			filtre.addExtension(".png");
+			filtre.addExtension(".jpg");
+			filtre.addExtension(".jpeg");
+			filtre.addExtension(".ico");
+			
+			chooser.addChoosableFileFilter(filtre);
+			
+			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {	
+				textFieldImage.setText(
+						chooser.getSelectedFile().getAbsolutePath());
+				conf.modifierValeur("playerPicture", textFieldImage.getText());
+			}
+		}
+	}
 }

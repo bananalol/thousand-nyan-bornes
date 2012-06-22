@@ -24,6 +24,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.Logger;
 
@@ -49,7 +52,7 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 	private static final String CNX = "Connexion";
 	private static final String QUITTER = "Quitter";
 	private static final String SERVEUR = "Créer le serveur";
-	private static final String[] attributsConfig = {"address"};
+	private static final String[] attributsConfig = {"address", "playerPicture"};
 
 	/** Composants de la JFrame */
 	private JLabel labelId;
@@ -82,19 +85,39 @@ public class AccueilMilleBornes extends JFrame implements ActionListener {
 
 	public AccueilMilleBornes() {
 		// On initialise le titre, la position etc.
-		setProperties();
-		conf = new Configuration("configClient.properties", attributsConfig);
-		getContentPane().setLayout(new FlowLayout());
-		setPicture(FlowLayout.CENTER);
-		setLabelAndField(FlowLayout.CENTER);
-		setCheckBox(FlowLayout.CENTER);
-		setButton(FlowLayout.LEFT);
-		setEnter();
-		setVisible(true);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			SwingUtilities.updateComponentTreeUI(this);
+			setProperties();
+			conf = new Configuration("configClient.properties", attributsConfig);
+			getContentPane().setLayout(new FlowLayout());
+			setPicture(FlowLayout.CENTER);
+			setLabelAndField(FlowLayout.CENTER);
+			setCheckBox(FlowLayout.CENTER);
+			setButton(FlowLayout.LEFT);
+			setEnter();
+			setVisible(true);
+		} catch (ClassNotFoundException ex) {
+			logger.error("AccueilMilleBornes.AccueilMilleBornes() : " +
+					"ClassNotFoundException");
+		} catch (InstantiationException ex) {
+			logger.error("AccueilMilleBornes.AccueilMilleBornes() : " +
+					"InstantiationException");
+		} catch (IllegalAccessException ex) {
+			logger.error("AccueilMilleBornes.AccueilMilleBornes() : " +
+					"IllegalAccessException");
+		} catch (UnsupportedLookAndFeelException ex) {
+			logger.error("AccueilMilleBornes.AccueilMilleBornes() : " +
+					"UnsupportedLookAndFeelException");
+		}
 	}
 
 	/**
 	 * Configuration des propriétés de la JFrame
+	 * @throws UnsupportedLookAndFeelException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 	private void setProperties() {
 		// Configuration de la JFrame
