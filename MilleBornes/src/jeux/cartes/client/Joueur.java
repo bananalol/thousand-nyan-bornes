@@ -48,13 +48,13 @@ public class Joueur implements Serializable {
 	 */
 	public Joueur(String pseudo) throws IOException {
 		conf = new Configuration(CONFIG_CLIENT);
+		if (! conf.valueOf("playerPicture").equals("")) {
+			File f = new File(conf.valueOf("playerPicture"));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(ImageIO.read(f), "png", baos);
+			imageJoueur = baos.toByteArray();
+		}
 
-		File f = new File(conf.valueOf("playerPicture"));
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(ImageIO.read(f), "png", baos);
-		imageJoueur = baos.toByteArray();
-		
 		this.pseudo = pseudo;
 		this.score = SCORE_INITIAL;
 	}
@@ -67,13 +67,13 @@ public class Joueur implements Serializable {
 	 */
 	public Joueur(String pseudo, String defaultPicture) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
+
 		File f = new File(Joueur.class.getResource(
 				defaultPicture).getPath());
-		
+
 		ImageIO.write(ImageIO.read(f), "png", baos);
 		imageJoueur = baos.toByteArray();
-		
+
 		this.pseudo = pseudo;
 		this.score = SCORE_INITIAL;
 	}

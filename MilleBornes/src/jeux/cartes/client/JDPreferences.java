@@ -97,7 +97,6 @@ public class JDPreferences extends JDialog implements ActionListener {
 		panLabelImage.add(labelImage);
 
 		textFieldImage = new JTextField(30);
-		textFieldImage.setEnabled(false);
 		panLabelImage.add(textFieldImage);
 
 		boutonImage = new JButton("...");
@@ -148,6 +147,7 @@ public class JDPreferences extends JDialog implements ActionListener {
 		if (ev.getSource() == valider) { // Ecrire avec Configuration
 			// On modifie le fichier de configuration avec les valeurs entrées
 			conf.modifierValeur("address", textFieldAdresse.getText());
+			conf.modifierValeur("playerPicture", textFieldImage.getText());
 			setVisible(false);
 			dispose();
 		} else if (ev.getSource() == annuler) { // Ne rien faire
