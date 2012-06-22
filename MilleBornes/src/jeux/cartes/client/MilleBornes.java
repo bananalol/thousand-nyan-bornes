@@ -6,7 +6,7 @@ package jeux.cartes.client;
 
 /**
  * Jeux de cartes le 1000 bornes
- * @author Lo�c Martinez
+ * @author Loïc Martinez
  * @version 1.0
  */
 
